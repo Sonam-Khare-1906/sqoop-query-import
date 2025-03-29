@@ -1,0 +1,293 @@
+[itv017714@g02 ~]$ mysql -uroot -pAditya908 -h pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 201
+Server version: 5.7.44-log Please upgrade to 8.0 or opt-in to the paid RDS Extended Support service before 5.7 reaches end of standard support on 29 February, 2024: https://a.co/hQqiIn0
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> create database if not exists itv017714;
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [(none)]> use itv017714;
+Database changed
+MySQL [itv017714]> drop table if exists zeyojob;
+Query OK, 0 rows affected, 1 warning (0.22 sec)
+
+MySQL [itv017714]> create table zeyojob (id int,name varchar(100),city varchar(100));
+Query OK, 0 rows affected (0.25 sec)
+
+MySQL [itv017714]> insert into zeyojob values(1,'zeyo','chennai');
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into zeyojob values(2,'hema','hyderabad');
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into zeyojob values(3,'raji','chennai');
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into zeyojob values(4,'viru','delhi');
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> select * from zeyojob;
++------+------+-----------+
+| id   | name | city      |
++------+------+-----------+
+|    1 | zeyo | chennai   |
+|    2 | hema | hyderabad |
+|    3 | raji | chennai   |
+|    4 | viru | delhi     |
++------+------+-----------+
+4 rows in set (0.22 sec)
+
+MySQL [itv017714]> quit
+Bye
+[itv017714@g02 ~]$ echo -n Aditya908>passfile
+[itv017714@g02 ~]$ sqoop job --create zjob -- import --connect jdbc:mysql://pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com/itv017714 --username root --password-file file:///home/itv017714/passfile --table zeyojob --m 1 --target-dir /user/itv017714/jobimport --incremental append --check-column id --last-value 0
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:02:52,236 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+[itv017714@g02 ~]$ sqoop job --exec zjob
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:03:05,674 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-03-29 02:03:06,186 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-03-29 02:03:06,186 INFO tool.CodeGenTool: Beginning code generation
+2025-03-29 02:03:09,553 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:03:10,906 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:03:11,802 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/ed466dc25884b17e1aba598451c8b15c/zeyojob.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-03-29 02:03:12,773 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/ed466dc25884b17e1aba598451c8b15c/zeyojob.jar
+2025-03-29 02:03:12,782 INFO tool.ImportTool: Maximal id query for free form incremental import: SELECT MAX(`id`) FROM `zeyojob`
+2025-03-29 02:03:13,006 INFO tool.ImportTool: Incremental import based on column `id`
+2025-03-29 02:03:13,006 INFO tool.ImportTool: Lower bound value: 0
+2025-03-29 02:03:13,006 INFO tool.ImportTool: Upper bound value: 4
+2025-03-29 02:03:13,006 WARN manager.MySQLManager: It looks like you are importing from mysql.
+2025-03-29 02:03:13,006 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+2025-03-29 02:03:13,006 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+2025-03-29 02:03:13,006 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+2025-03-29 02:03:13,901 INFO mapreduce.ImportJobBase: Beginning import of zeyojob
+2025-03-29 02:03:13,901 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+2025-03-29 02:03:13,905 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+2025-03-29 02:03:14,973 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2025-03-29 02:03:15,155 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at m02.itversity.com/172.16.1.104:8032
+2025-03-29 02:03:15,315 INFO client.AHSProxy: Connecting to Application History server at m01.itversity.com/172.16.1.103:10200
+2025-03-29 02:03:15,454 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/itv017714/.staging/job_1737290322575_43156
+2025-03-29 02:03:29,052 INFO db.DBInputFormat: Using read commited transaction isolation
+2025-03-29 02:03:29,576 INFO mapreduce.JobSubmitter: number of splits:1
+2025-03-29 02:03:29,834 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1737290322575_43156
+2025-03-29 02:03:29,834 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-03-29 02:03:29,981 INFO conf.Configuration: resource-types.xml not found
+2025-03-29 02:03:29,981 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-03-29 02:03:30,218 INFO impl.YarnClientImpl: Submitted application application_1737290322575_43156
+2025-03-29 02:03:30,275 INFO mapreduce.Job: The url to track the job: http://m02.itversity.com:19088/proxy/application_1737290322575_43156/
+2025-03-29 02:03:30,276 INFO mapreduce.Job: Running job: job_1737290322575_43156
+2025-03-29 02:03:34,369 INFO mapreduce.Job: Job job_1737290322575_43156 running in uber mode : false
+2025-03-29 02:03:34,371 INFO mapreduce.Job:  map 0% reduce 0%
+2025-03-29 02:03:42,449 INFO mapreduce.Job:  map 100% reduce 0%
+2025-03-29 02:03:43,470 INFO mapreduce.Job: Job job_1737290322575_43156 completed successfully
+2025-03-29 02:03:43,522 INFO mapreduce.Job: Counters: 33
+        File System Counters
+                FILE: Number of bytes read=0
+                FILE: Number of bytes written=275391
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=87
+                HDFS: Number of bytes written=60
+                HDFS: Number of read operations=6
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=1
+                Other local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=6039
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=6039
+                Total vcore-milliseconds taken by all map tasks=6039
+                Total megabyte-milliseconds taken by all map tasks=6183936
+        Map-Reduce Framework
+                Map input records=4
+                Map output records=4
+                Input split bytes=87
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=19
+                CPU time spent (ms)=730
+                Physical memory (bytes) snapshot=310005760
+                Virtual memory (bytes) snapshot=2626904064
+                Total committed heap usage (bytes)=626524160
+                Peak Map Physical memory (bytes)=310005760
+                Peak Map Virtual memory (bytes)=2626904064
+        File Input Format Counters 
+                Bytes Read=0
+        File Output Format Counters 
+                Bytes Written=60
+2025-03-29 02:03:43,526 INFO mapreduce.ImportJobBase: Transferred 60 bytes in 28.5459 seconds (2.1019 bytes/sec)
+2025-03-29 02:03:43,528 INFO mapreduce.ImportJobBase: Retrieved 4 records.
+2025-03-29 02:03:43,538 INFO util.AppendUtils: Creating missing output directory - jobimport
+2025-03-29 02:03:43,599 INFO tool.ImportTool: Saving incremental import state to the metastore
+2025-03-29 02:03:43,640 INFO tool.ImportTool: Updated data for job: zjob
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/jobimport
+Found 1 items
+-rw-r--r--   3 itv017714 supergroup         60 2025-03-29 02:03 /user/itv017714/jobimport/part-m-00000
+[itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/jobimport/part-m-00000
+1,zeyo,chennai
+2,hema,hyderabad
+3,raji,chennai
+4,viru,delhi
+[itv017714@g02 ~]$ mysql -uroot -pAditya908 -h pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 325
+Server version: 5.7.44-log Please upgrade to 8.0 or opt-in to the paid RDS Extended Support service before 5.7 reaches end of standard support on 29 February, 2024: https://a.co/hQqiIn0
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> create database if not exists itv017714;
+Query OK, 1 row affected, 1 warning (0.22 sec)
+
+MySQL [(none)]> use itv017714;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [itv017714]> insert into zeyojob values(5,'ramu','chennai');
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into zeyojob values(6,'vasu','delhi');
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> select * from zeyojob;
++------+------+-----------+
+| id   | name | city      |
++------+------+-----------+
+|    1 | zeyo | chennai   |
+|    2 | hema | hyderabad |
+|    3 | raji | chennai   |
+|    4 | viru | delhi     |
+|    5 | ramu | chennai   |
+|    6 | vasu | delhi     |
++------+------+-----------+
+6 rows in set (0.23 sec)
+
+MySQL [itv017714]> quit
+Bye
+[itv017714@g02 ~]$ sqoop job --exec zjob
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:05:33,288 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-03-29 02:05:39,981 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-03-29 02:05:39,981 INFO tool.CodeGenTool: Beginning code generation
+2025-03-29 02:05:43,405 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:05:44,724 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:05:45,598 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/f3d33ab48b0731234ca7b3f43d47a695/zeyojob.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-03-29 02:05:51,277 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/f3d33ab48b0731234ca7b3f43d47a695/zeyojob.jar
+2025-03-29 02:05:51,289 INFO tool.ImportTool: Maximal id query for free form incremental import: SELECT MAX(`id`) FROM `zeyojob`
+2025-03-29 02:05:51,507 INFO tool.ImportTool: Incremental import based on column `id`
+2025-03-29 02:05:51,507 INFO tool.ImportTool: Lower bound value: 4
+2025-03-29 02:05:51,507 INFO tool.ImportTool: Upper bound value: 6
+2025-03-29 02:05:51,507 WARN manager.MySQLManager: It looks like you are importing from mysql.
+2025-03-29 02:05:51,507 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+2025-03-29 02:05:51,507 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+2025-03-29 02:05:51,507 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+2025-03-29 02:05:52,380 INFO mapreduce.ImportJobBase: Beginning import of zeyojob
+2025-03-29 02:05:52,381 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+2025-03-29 02:05:52,386 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+2025-03-29 02:05:53,431 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2025-03-29 02:05:53,657 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at m02.itversity.com/172.16.1.104:8032
+2025-03-29 02:05:54,211 INFO client.AHSProxy: Connecting to Application History server at m01.itversity.com/172.16.1.103:10200
+2025-03-29 02:05:54,507 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/itv017714/.staging/job_1737290322575_43190
+2025-03-29 02:06:08,760 INFO db.DBInputFormat: Using read commited transaction isolation
+2025-03-29 02:06:09,141 INFO mapreduce.JobSubmitter: number of splits:1
+2025-03-29 02:06:09,287 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1737290322575_43190
+2025-03-29 02:06:09,287 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-03-29 02:06:09,411 INFO conf.Configuration: resource-types.xml not found
+2025-03-29 02:06:09,412 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-03-29 02:06:09,645 INFO impl.YarnClientImpl: Submitted application application_1737290322575_43190
+2025-03-29 02:06:09,665 INFO mapreduce.Job: The url to track the job: http://m02.itversity.com:19088/proxy/application_1737290322575_43190/
+2025-03-29 02:06:09,665 INFO mapreduce.Job: Running job: job_1737290322575_43190
+2025-03-29 02:06:42,852 INFO mapreduce.Job: Job job_1737290322575_43190 running in uber mode : false
+2025-03-29 02:06:42,853 INFO mapreduce.Job:  map 0% reduce 0%
+2025-03-29 02:06:50,928 INFO mapreduce.Job:  map 100% reduce 0%
+2025-03-29 02:06:51,935 INFO mapreduce.Job: Job job_1737290322575_43190 completed successfully
+2025-03-29 02:06:51,995 INFO mapreduce.Job: Counters: 33
+        File System Counters
+                FILE: Number of bytes read=0
+                FILE: Number of bytes written=275391
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=87
+                HDFS: Number of bytes written=28
+                HDFS: Number of read operations=6
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=1
+                Other local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=6218
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=6218
+                Total vcore-milliseconds taken by all map tasks=6218
+                Total megabyte-milliseconds taken by all map tasks=6367232
+        Map-Reduce Framework
+                Map input records=2
+                Map output records=2
+                Input split bytes=87
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=32
+                CPU time spent (ms)=640
+                Physical memory (bytes) snapshot=313126912
+                Virtual memory (bytes) snapshot=2626744320
+                Total committed heap usage (bytes)=649592832
+                Peak Map Physical memory (bytes)=313126912
+                Peak Map Virtual memory (bytes)=2626744320
+        File Input Format Counters 
+                Bytes Read=0
+        File Output Format Counters 
+                Bytes Written=28
+2025-03-29 02:06:51,999 INFO mapreduce.ImportJobBase: Transferred 28 bytes in 58.5573 seconds (0.4782 bytes/sec)
+2025-03-29 02:06:52,001 INFO mapreduce.ImportJobBase: Retrieved 2 records.
+2025-03-29 02:06:52,013 INFO util.AppendUtils: Appending to directory jobimport
+2025-03-29 02:06:52,017 INFO util.AppendUtils: Using found partition 1
+2025-03-29 02:06:52,158 INFO tool.ImportTool: Saving incremental import state to the metastore
+2025-03-29 02:06:52,228 INFO tool.ImportTool: Updated data for job: zjob
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/jobimport
+Found 2 items
+-rw-r--r--   3 itv017714 supergroup         60 2025-03-29 02:03 /user/itv017714/jobimport/part-m-00000
+-rw-r--r--   3 itv017714 supergroup         28 2025-03-29 02:06 /user/itv017714/jobimport/part-m-00001
+[itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/jobimport/part-m-00001
+5,ramu,chennai
+6,vasu,delhi
