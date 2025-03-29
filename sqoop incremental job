@@ -291,3 +291,108 @@ Found 2 items
 [itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/jobimport/part-m-00001
 5,ramu,chennai
 6,vasu,delhi
+[itv017714@g02 ~]$ sqoop job --list
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:12:50,265 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+Available jobs:
+  zjob
+[itv017714@g02 ~]$ sqoop job --show zjob
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:13:12,147 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+Job: zjob
+Tool: import
+Options:
+----------------------------
+verbose = false
+hcatalog.drop.and.create.table = false
+incremental.last.value = 6
+db.connect.string = jdbc:mysql://pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com/itv017714
+codegen.output.delimiters.escape = 0
+codegen.output.delimiters.enclose.required = false
+codegen.input.delimiters.field = 0
+mainframe.input.dataset.type = p
+split.limit = null
+hbase.create.table = false
+skip.dist.cache = false
+hdfs.append.dir = true
+db.table = zeyojob
+codegen.input.delimiters.escape = 0
+accumulo.create.table = false
+import.fetch.size = null
+codegen.input.delimiters.enclose.required = false
+db.username = root
+reset.onemapper = false
+codegen.output.delimiters.record = 10
+import.max.inline.lob.size = 16777216
+sqoop.throwOnError = false
+hbase.bulk.load.enabled = false
+hcatalog.create.table = false
+db.clear.staging.table = false
+incremental.col = id
+codegen.input.delimiters.record = 0
+db.password.file = file:///home/itv017714/passfile
+enable.compression = false
+hive.overwrite.table = false
+hive.import = false
+codegen.input.delimiters.enclose = 0
+accumulo.batch.size = 10240000
+hive.drop.delims = false
+customtool.options.jsonmap = {}
+codegen.output.delimiters.enclose = 0
+hdfs.delete-target.dir = false
+codegen.output.dir = .
+codegen.auto.compile.dir = true
+relaxed.isolation = false
+mapreduce.num.mappers = 1
+accumulo.max.latency = 5000
+import.direct.split.size = 0
+sqlconnection.metadata.transaction.isolation.level = 2
+codegen.output.delimiters.field = 44
+export.new.update = UpdateOnly
+incremental.mode = AppendRows
+hdfs.file.format = TextFile
+sqoop.oracle.escaping.disabled = true
+codegen.compile.dir = /tmp/sqoop-itv017714/compile/13c05b140b434f66a3fa510b12afd8c7
+direct.import = false
+temporary.dirRoot = _sqoop
+hdfs.target.dir = /user/itv017714/jobimport
+hive.fail.table.exists = false
+db.batch = false
+[itv017714@g02 ~]$ sqoop job --exec zjob
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-03-29 02:13:38,121 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-03-29 02:13:38,614 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-03-29 02:13:38,614 INFO tool.CodeGenTool: Beginning code generation
+2025-03-29 02:13:42,036 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:13:43,406 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `zeyojob` AS t LIMIT 1
+2025-03-29 02:13:44,296 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/155d7c9dc82fba721737d3c97d4f0905/zeyojob.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-03-29 02:13:45,157 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/155d7c9dc82fba721737d3c97d4f0905/zeyojob.jar
+2025-03-29 02:13:45,164 INFO tool.ImportTool: Maximal id query for free form incremental import: SELECT MAX(`id`) FROM `zeyojob`
+2025-03-29 02:13:45,386 INFO tool.ImportTool: Incremental import based on column `id`
+2025-03-29 02:13:45,386 INFO tool.ImportTool: No new rows detected since last import.
