@@ -1,0 +1,220 @@
+[itv017714@g02 ~]$ FILENAME=$(basename https://raw.githubusercontent.com/saiadityaus1/SparkCore1/refs/heads/master/lab/CLOUD.txt) && wget -q https://raw.githubusercontent.com/saiadityaus1/SparkCore1/refs/heads/master/lab/$FILENAME && USERNAME=$(basename $(pwd)) && sed -i "s/LABUSER/${USERNAME}/g" $FILENAME && echo -e "\n$FILENAME available at your left -- pls check\n"
+
+CLOUD.txt available at your left -- pls check
+
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ rm -rf awscli-bundle.zip
+[itv017714@g02 ~]$ rm -rf awscli-bundle
+[itv017714@g02 ~]$ curl https://s3.amazonaws.com/aws-cli/awscli-bundle-1.16.188.zip -o awscli-bundle.zip
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 11.6M  100 11.6M    0     0  34.7M      0 --:--:-- --:--:-- --:--:-- 34.7M
+[itv017714@g02 ~]$ unzip awscli-bundle.zip
+Archive:  awscli-bundle.zip
+  inflating: awscli-bundle/install   
+  inflating: awscli-bundle/packages/botocore-1.12.178.tar.gz  
+  inflating: awscli-bundle/packages/argparse-1.2.1.tar.gz  
+  inflating: awscli-bundle/packages/rsa-3.4.2.tar.gz  
+  inflating: awscli-bundle/packages/ordereddict-1.1.tar.gz  
+  inflating: awscli-bundle/packages/simplejson-3.3.0.tar.gz  
+  inflating: awscli-bundle/packages/urllib3-1.25.3.tar.gz  
+  inflating: awscli-bundle/packages/python-dateutil-2.6.1.tar.gz  
+  inflating: awscli-bundle/packages/s3transfer-0.2.1.tar.gz  
+  inflating: awscli-bundle/packages/six-1.12.0.tar.gz  
+  inflating: awscli-bundle/packages/python-dateutil-2.8.0.tar.gz  
+  inflating: awscli-bundle/packages/virtualenv-15.1.0.tar.gz  
+  inflating: awscli-bundle/packages/jmespath-0.9.4.tar.gz  
+  inflating: awscli-bundle/packages/urllib3-1.22.tar.gz  
+  inflating: awscli-bundle/packages/colorama-0.3.9.tar.gz  
+  inflating: awscli-bundle/packages/awscli-1.16.188.tar.gz  
+  inflating: awscli-bundle/packages/PyYAML-3.13.tar.gz  
+  inflating: awscli-bundle/packages/pyasn1-0.4.5.tar.gz  
+  inflating: awscli-bundle/packages/docutils-0.14.tar.gz  
+  inflating: awscli-bundle/packages/PyYAML-5.1.tar.gz  
+  inflating: awscli-bundle/packages/futures-3.2.0.tar.gz  
+  inflating: awscli-bundle/packages/setup/setuptools_scm-1.15.7.tar.gz  
+[itv017714@g02 ~]$ ./awscli-bundle/install -i /home/itv017714/aws -b /home/itv017714/bin/aws
+Running cmd: /bin/python virtualenv.py --no-download --python /bin/python /home/itv017714/aws
+Running cmd: /home/itv017714/aws/bin/pip install --no-cache-dir --no-index --find-links file:///home/itv017714/awscli-bundle/packages/setup setuptools_scm-1.15.7.tar.gz
+Running cmd: /home/itv017714/aws/bin/pip install --no-cache-dir --no-index --find-links file:///home/itv017714/awscli-bundle/packages awscli-1.16.188.tar.gz
+Symlink already exists: /home/itv017714/bin/aws
+Removing symlink.
+You can now run: /home/itv017714/bin/aws --version
+[itv017714@g02 ~]$ aws=/home/itv017714/bin/aws
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ rm -rf .aws
+[itv017714@g02 ~]$ mkdir .aws
+[itv017714@g02 ~]$ cd .aws
+[itv017714@g02 .aws]$ wget https://zeyobuck43.s3.ap-south-1.amazonaws.com/credentials
+--2025-03-30 02:23:55--  https://zeyobuck43.s3.ap-south-1.amazonaws.com/credentials
+Resolving zeyobuck43.s3.ap-south-1.amazonaws.com (zeyobuck43.s3.ap-south-1.amazonaws.com)... 3.5.212.115, 3.5.208.202, 52.219.64.7, ...
+Connecting to zeyobuck43.s3.ap-south-1.amazonaws.com (zeyobuck43.s3.ap-south-1.amazonaws.com)|3.5.212.115|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 116 [binary/octet-stream]
+Saving to: ‘credentials’
+
+100%[=======================================================>] 116         --.-K/s   in 0s      
+
+2025-03-30 02:23:56 (16.6 MB/s) - ‘credentials’ saved [116/116]
+
+[itv017714@g02 .aws]$ cd
+[itv017714@g02 ~]$ aws s3 ls s3://zeyobuck43
+                           PRE ARPITdir/
+                           PRE Aartidir/
+                           PRE AbhishekManjunathadir/
+                           PRE Abhishekgirasedir/
+                           PRE Ajinkyadir/
+                           PRE AjithKumardir/
+                           PRE Ajmaldir/
+                           PRE Akhildir/
+                           PRE Akhndir/
+                           PRE Ambadasdir/
+                           PRE Amrutdir/
+                           PRE Aparna.Mdir/
+                           PRE Asardir/
+                           PRE Azardir/
+                           PRE BHASKARdir/
+                           PRE DHANAdir/
+                           PRE DeepakSingdir/
+                           PRE Firstclouddir/
+                           PRE GODATI/
+                           PRE GauravKumardir/
+                           PRE Gauravdir/
+                           PRE GuruPrasaddir/
+                           PRE Hariedir/
+                           PRE Harishadir/
+                           PRE Haseebdir/
+                           PRE HelloVijaydir/
+                           PRE Juhithadir/
+                           PRE KARTHICKdir/
+                           PRE KeerthiPriyadir/
+                           PRE KrishChai/
+                           PRE Lakshmidir/
+                           PRE MADDAIAHdir/
+                           PRE MAHIMdir/
+                           PRE MESSI/
+                           PRE MOORTHYdir/
+                           PRE Mandiradir/
+                           PRE ManoharVarmadir/
+                           PRE Miladdir/
+                           PRE Monidir/
+                           PRE MushClouddir/
+                           PRE NACdir/
+                           PRE Nandinidir/
+                           PRE Nandudir/
+                           PRE Nileshdir/
+                           PRE PREETHI904dir/
+                           PRE Parnita/
+                           PRE Pavihopedir/
+                           PRE Ponraj98dir/
+                           PRE PraNatdir/
+                           PRE Pranaydir/
+                           PRE Premkdir/
+                           PRE RAJASEKHARdir/
+                           PRE Rushikesh/
+                           PRE SAImrandir/
+                           PRE SANUSHA1dir/
+                           PRE SARATSDIR/
+                           PRE SAURAVdir/
+                           PRE Sairam/
+                           PRE SatyaGorle/
+                           PRE Sharmiladir/
+                           PRE Shinydir/
+                           PRE Shubhayu_Mallickdir/
+                           PRE ShwetaSadir/
+                           PRE Sonal_Mudgaldir/
+                           PRE Subhammdir/
+                           PRE TUSHARKdir/
+                           PRE URNAMEdir/
+                           PRE VARALAKSHMIdir/
+                           PRE VEERENDRAdir/
+                           PRE VaibhavClouddir/
+                           PRE Vimaldir/
+                           PRE Vipul_Singh/
+                           PRE YOGIdir/
+                           PRE amitjdir/
+                           PRE anandpurushothamandir/
+                           PRE ananthdir/
+                           PRE arunprasath9047830755dir/
+                           PRE balajidir/
+                           PRE baludir/
+                           PRE bhanudir/
+                           PRE bhavanadir/
+                           PRE bhoomidir/
+                           PRE cloudimport/
+                           PRE dikpaldir/
+                           PRE divyeshdir/
+                           PRE elakyadir/
+                           PRE gnanavdir/
+                           PRE gopalakrishnanjdir/
+                           PRE gulabdir/
+                           PRE harivicdir/
+                           PRE hmdir/
+                           PRE ironman3000/
+                           PRE jaimurugandir/
+                           PRE jayanthi_ajay_dir/
+                           PRE jaydir/
+                           PRE jpdir/
+                           PRE kalyandir/
+                           PRE kavdir/
+                           PRE kaveridir/
+                           PRE kesavadir/
+                           PRE lakshmi-7474/
+                           PRE lavandir/
+                           PRE madhudir/
+                           PRE maladir/
+                           PRE mhndir/
+                           PRE minatidir/
+                           PRE mohanadir/
+                           PRE mukeshv09dir/
+                           PRE narasimha30325dir/
+                           PRE navdir/
+                           PRE nikidir/
+                           PRE poojadir/
+                           PRE prachikharedir/
+                           PRE prashanthrdir/
+                           PRE prathyushadir/
+                           PRE pratikdir/
+                           PRE pream9688026733_dir/
+                           PRE premkumardir/
+                           PRE priyadir/
+                           PRE pruthvidir/
+                           PRE purnadir/
+                           PRE raghum9977dir/
+                           PRE rajadir/
+                           PRE rajdeepdir/
+                           PRE ramkumarmohandir/
+                           PRE robindir/
+                           PRE rpriyadir/
+                           PRE saibhommididir/
+                           PRE saidir/
+                           PRE santhosh_dir/
+                           PRE sarathdir/
+                           PRE shalinidir/
+                           PRE sharangdir/
+                           PRE sharankumardir/
+                           PRE sivasdir/
+                           PRE sowdir/
+                           PRE sumitdir/
+                           PRE sumprithadir/
+                           PRE sunny1012dir/
+                           PRE suryadir/
+                           PRE tirudir/
+                           PRE tusharrajputdir/
+                           PRE tycodir/
+                           PRE vanidir/
+                           PRE vasuguptadir/
+                           PRE veeradir/
+                           PRE venkat_s_dir/
+                           PRE vetridir/
+                           PRE vgirishdir/
+                           PRE vinoddir/
+                           PRE vivdir/
+                           PRE vivekdir/
+                           PRE yogeshdir/
+                           PRE yuvamanidir/
+                           PRE yuvaraj_9742295100_dir/
+                           PRE zeyosaravanandir/
+2025-03-29 22:46:06        116 credentials
+[itv017714@g02 ~]$ echo done
+done
