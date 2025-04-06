@@ -1,0 +1,406 @@
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ mysql --host=pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com --user=root --password=Aditya908
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5531
+Server version: 5.7.44-log Please upgrade to 8.0 or opt-in to the paid RDS Extended Support service before 5.7 reaches end of standard support on 29 February, 2024: https://a.co/hQqiIn0
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> create database itv017714;
+ERROR 1007 (HY000): Can't create database 'itv017714'; database exists
+MySQL [(none)]> use itv017714;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [itv017714]> 
+MySQL [itv017714]> drop table if exists mtab;
+Query OK, 0 rows affected, 1 warning (0.22 sec)
+
+MySQL [itv017714]> create table mtab(id int,name varchar(100),amount int);
+Query OK, 0 rows affected (0.24 sec)
+
+MySQL [itv017714]> insert into mtab values(1,'zeyo',40);
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into mtab values(2,'vasu',50);
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into mtab values(3,'rani',70);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(4,'vani',40);
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into mtab values(5,'hema',50);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(6,'hari',70);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(7,'raki',40);
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into mtab values(8,'vira',50);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(9,'rupa',70);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(10,'Siji',40);
+Query OK, 1 row affected (0.23 sec)
+
+MySQL [itv017714]> insert into mtab values(11,'rapo',50);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> insert into mtab values(12,'visu',70);
+Query OK, 1 row affected (0.22 sec)
+
+MySQL [itv017714]> select * from mtab;
++------+------+--------+
+| id   | name | amount |
++------+------+--------+
+|    1 | zeyo |     40 |
+|    2 | vasu |     50 |
+|    3 | rani |     70 |
+|    4 | vani |     40 |
+|    5 | hema |     50 |
+|    6 | hari |     70 |
+|    7 | raki |     40 |
+|    8 | vira |     50 |
+|    9 | rupa |     70 |
+|   10 | Siji |     40 |
+|   11 | rapo |     50 |
+|   12 | visu |     70 |
++------+------+--------+
+12 rows in set (0.22 sec)
+
+MySQL [itv017714]> quit
+Bye
+[itv017714@g02 ~]$ sqoop import --connect jdbc:mysql://pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com/LABUSER --username root --password Aditya908 --table mtab --m 1 --delete-target-dir --target-dir /user/itv017714/mdata1
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-04-06 01:52:37,083 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-04-06 01:52:37,124 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+2025-04-06 01:52:37,188 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-04-06 01:52:37,188 INFO tool.CodeGenTool: Beginning code generation
+2025-04-06 01:52:40,736 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:52:42,057 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:52:42,932 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/269c5b2e5cea8a5e760e31f4079e5ae5/mtab.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-04-06 01:52:43,821 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/269c5b2e5cea8a5e760e31f4079e5ae5/mtab.jar
+2025-04-06 01:52:44,292 INFO tool.ImportTool: Destination directory /user/itv017714/mdata1 is not present, hence not deleting.
+2025-04-06 01:52:44,292 WARN manager.MySQLManager: It looks like you are importing from mysql.
+2025-04-06 01:52:44,292 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+2025-04-06 01:52:44,292 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+2025-04-06 01:52:44,292 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+2025-04-06 01:52:45,157 INFO mapreduce.ImportJobBase: Beginning import of mtab
+2025-04-06 01:52:45,159 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+2025-04-06 01:52:45,174 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+2025-04-06 01:52:45,847 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2025-04-06 01:52:45,977 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at m02.itversity.com/172.16.1.104:8032
+2025-04-06 01:52:46,045 INFO client.AHSProxy: Connecting to Application History server at m01.itversity.com/172.16.1.103:10200
+2025-04-06 01:52:46,262 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/itv017714/.staging/job_1737290322575_47956
+2025-04-06 01:52:53,259 INFO db.DBInputFormat: Using read commited transaction isolation
+2025-04-06 01:52:53,700 INFO mapreduce.JobSubmitter: number of splits:1
+2025-04-06 01:52:53,830 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1737290322575_47956
+2025-04-06 01:52:53,830 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-04-06 01:52:53,954 INFO conf.Configuration: resource-types.xml not found
+2025-04-06 01:52:53,955 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-04-06 01:52:54,004 INFO impl.YarnClientImpl: Submitted application application_1737290322575_47956
+2025-04-06 01:52:54,025 INFO mapreduce.Job: The url to track the job: http://m02.itversity.com:19088/proxy/application_1737290322575_47956/
+2025-04-06 01:52:54,026 INFO mapreduce.Job: Running job: job_1737290322575_47956
+2025-04-06 01:53:01,153 INFO mapreduce.Job: Job job_1737290322575_47956 running in uber mode : false
+2025-04-06 01:53:01,156 INFO mapreduce.Job:  map 0% reduce 0%
+2025-04-06 01:53:09,253 INFO mapreduce.Job:  map 100% reduce 0%
+2025-04-06 01:53:11,276 INFO mapreduce.Job: Job job_1737290322575_47956 completed successfully
+2025-04-06 01:53:11,323 INFO mapreduce.Job: Counters: 33
+        File System Counters
+                FILE: Number of bytes read=0
+                FILE: Number of bytes written=274717
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=87
+                HDFS: Number of bytes written=123
+                HDFS: Number of read operations=6
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=1
+                Other local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=6084
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=6084
+                Total vcore-milliseconds taken by all map tasks=6084
+                Total megabyte-milliseconds taken by all map tasks=6230016
+        Map-Reduce Framework
+                Map input records=12
+                Map output records=12
+                Input split bytes=87
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=19
+                CPU time spent (ms)=690
+                Physical memory (bytes) snapshot=308056064
+                Virtual memory (bytes) snapshot=2627260416
+                Total committed heap usage (bytes)=626524160
+                Peak Map Physical memory (bytes)=308056064
+                Peak Map Virtual memory (bytes)=2627260416
+        File Input Format Counters 
+                Bytes Read=0
+        File Output Format Counters 
+                Bytes Written=123
+2025-04-06 01:53:11,326 INFO mapreduce.ImportJobBase: Transferred 123 bytes in 25.4664 seconds (4.8299 bytes/sec)
+2025-04-06 01:53:11,328 INFO mapreduce.ImportJobBase: Retrieved 12 records.
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/mdata1/ 
+Found 2 items
+-rw-r--r--   3 itv017714 supergroup          0 2025-04-06 01:53 /user/itv017714/mdata1/_SUCCESS
+-rw-r--r--   3 itv017714 supergroup        123 2025-04-06 01:53 /user/itv017714/mdata1/part-m-00000
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata1/part-m-00000 
+1,zeyo,40
+2,vasu,50
+3,rani,70
+4,vani,40
+5,hema,50
+6,hari,70
+7,raki,40
+8,vira,50
+9,rupa,70
+10,Siji,40
+11,rapo,50
+12,visu,70
+[itv017714@g02 ~]$ sqoop import --connect jdbc:mysql://pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com/LABUSER --username root --password Aditya908 --table mtab --m 2 --split-by id --delete-target-dir --target-dir /user/itv017714/mdata2
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-04-06 01:55:54,799 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-04-06 01:55:54,840 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+2025-04-06 01:55:54,923 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-04-06 01:55:54,923 INFO tool.CodeGenTool: Beginning code generation
+2025-04-06 01:55:58,885 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:56:00,229 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:56:01,113 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/0285e02c7b2ce064e3ba95e80540aaf4/mtab.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-04-06 01:56:04,197 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/0285e02c7b2ce064e3ba95e80540aaf4/mtab.jar
+2025-04-06 01:56:04,674 INFO tool.ImportTool: Destination directory /user/itv017714/mdata2 is not present, hence not deleting.
+2025-04-06 01:56:04,674 WARN manager.MySQLManager: It looks like you are importing from mysql.
+2025-04-06 01:56:04,674 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+2025-04-06 01:56:04,675 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+2025-04-06 01:56:04,675 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+2025-04-06 01:56:04,676 INFO mapreduce.ImportJobBase: Beginning import of mtab
+2025-04-06 01:56:04,676 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+2025-04-06 01:56:04,691 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+2025-04-06 01:56:05,370 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2025-04-06 01:56:05,820 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at m02.itversity.com/172.16.1.104:8032
+2025-04-06 01:56:06,075 INFO client.AHSProxy: Connecting to Application History server at m01.itversity.com/172.16.1.103:10200
+2025-04-06 01:56:06,443 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/itv017714/.staging/job_1737290322575_47970
+2025-04-06 01:56:14,276 INFO db.DBInputFormat: Using read commited transaction isolation
+2025-04-06 01:56:14,499 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`id`), MAX(`id`) FROM `mtab`
+2025-04-06 01:56:14,723 INFO db.IntegerSplitter: Split size: 5; Num splits: 2 from: 1 to: 12
+2025-04-06 01:56:15,464 INFO mapreduce.JobSubmitter: number of splits:2
+2025-04-06 01:56:16,117 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1737290322575_47970
+2025-04-06 01:56:16,117 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-04-06 01:56:16,436 INFO conf.Configuration: resource-types.xml not found
+2025-04-06 01:56:16,436 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-04-06 01:56:16,502 INFO impl.YarnClientImpl: Submitted application application_1737290322575_47970
+2025-04-06 01:56:16,521 INFO mapreduce.Job: The url to track the job: http://m02.itversity.com:19088/proxy/application_1737290322575_47970/
+2025-04-06 01:56:16,521 INFO mapreduce.Job: Running job: job_1737290322575_47970
+2025-04-06 01:56:21,582 INFO mapreduce.Job: Job job_1737290322575_47970 running in uber mode : false
+2025-04-06 01:56:21,584 INFO mapreduce.Job:  map 0% reduce 0%
+2025-04-06 01:56:29,677 INFO mapreduce.Job:  map 100% reduce 0%
+2025-04-06 01:56:29,691 INFO mapreduce.Job: Job job_1737290322575_47970 completed successfully
+2025-04-06 01:56:29,805 INFO mapreduce.Job: Counters: 33
+        File System Counters
+                FILE: Number of bytes read=0
+                FILE: Number of bytes written=549752
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=198
+                HDFS: Number of bytes written=123
+                HDFS: Number of read operations=12
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=4
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Launched map tasks=2
+                Other local map tasks=2
+                Total time spent by all maps in occupied slots (ms)=11911
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=11911
+                Total vcore-milliseconds taken by all map tasks=11911
+                Total megabyte-milliseconds taken by all map tasks=12196864
+        Map-Reduce Framework
+                Map input records=12
+                Map output records=12
+                Input split bytes=198
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=44
+                CPU time spent (ms)=1340
+                Physical memory (bytes) snapshot=620597248
+                Virtual memory (bytes) snapshot=5249503232
+                Total committed heap usage (bytes)=1250951168
+                Peak Map Physical memory (bytes)=311406592
+                Peak Map Virtual memory (bytes)=2625548288
+        File Input Format Counters 
+                Bytes Read=0
+        File Output Format Counters 
+                Bytes Written=123
+2025-04-06 01:56:29,809 INFO mapreduce.ImportJobBase: Transferred 123 bytes in 24.4258 seconds (5.0357 bytes/sec)
+2025-04-06 01:56:29,812 INFO mapreduce.ImportJobBase: Retrieved 12 records.
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/mdata2/ 
+Found 3 items
+-rw-r--r--   3 itv017714 supergroup          0 2025-04-06 01:56 /user/itv017714/mdata2/_SUCCESS
+-rw-r--r--   3 itv017714 supergroup         60 2025-04-06 01:56 /user/itv017714/mdata2/part-m-00000
+-rw-r--r--   3 itv017714 supergroup         63 2025-04-06 01:56 /user/itv017714/mdata2/part-m-00001
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata2/part-m-00000 
+1,zeyo,40
+2,vasu,50
+3,rani,70
+4,vani,40
+5,hema,50
+6,hari,70
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata2/part-m-00001
+7,raki,40
+8,vira,50
+9,rupa,70
+10,Siji,40
+11,rapo,50
+12,visu,70
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ sqoop import --connect jdbc:mysql://pradb2.cjimueo6u07z.ap-south-1.rds.amazonaws.com/LABUSER --username root --password Aditya908 --table mtab   --split-by id --delete-target-dir --target-dir /user/itv017714/mdata4
+Warning: /opt/sqoop/../hcatalog does not exist! HCatalog jobs will fail.
+Please set $HCAT_HOME to the root of your HCatalog installation.
+Warning: /opt/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2025-04-06 01:58:22,840 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+2025-04-06 01:58:22,884 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+2025-04-06 01:58:22,963 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+2025-04-06 01:58:22,963 INFO tool.CodeGenTool: Beginning code generation
+2025-04-06 01:58:26,422 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:58:27,766 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `mtab` AS t LIMIT 1
+2025-04-06 01:58:28,656 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop
+Note: /tmp/sqoop-itv017714/compile/8764e4e2d1a65d6abb07a2c03e47c923/mtab.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2025-04-06 01:58:29,608 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-itv017714/compile/8764e4e2d1a65d6abb07a2c03e47c923/mtab.jar
+2025-04-06 01:58:30,049 INFO tool.ImportTool: Destination directory /user/itv017714/mdata4 is not present, hence not deleting.
+2025-04-06 01:58:30,050 WARN manager.MySQLManager: It looks like you are importing from mysql.
+2025-04-06 01:58:30,050 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+2025-04-06 01:58:30,050 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+2025-04-06 01:58:30,050 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+2025-04-06 01:58:30,051 INFO mapreduce.ImportJobBase: Beginning import of mtab
+2025-04-06 01:58:30,051 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+2025-04-06 01:58:30,054 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+2025-04-06 01:58:30,738 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2025-04-06 01:58:30,865 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at m02.itversity.com/172.16.1.104:8032
+2025-04-06 01:58:30,934 INFO client.AHSProxy: Connecting to Application History server at m01.itversity.com/172.16.1.103:10200
+2025-04-06 01:58:31,090 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/itv017714/.staging/job_1737290322575_47975
+2025-04-06 01:58:39,008 INFO db.DBInputFormat: Using read commited transaction isolation
+2025-04-06 01:58:39,231 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`id`), MAX(`id`) FROM `mtab`
+2025-04-06 01:58:39,458 INFO db.IntegerSplitter: Split size: 2; Num splits: 4 from: 1 to: 12
+2025-04-06 01:58:40,072 INFO mapreduce.JobSubmitter: number of splits:4
+2025-04-06 01:58:40,257 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1737290322575_47975
+2025-04-06 01:58:40,257 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-04-06 01:58:40,391 INFO conf.Configuration: resource-types.xml not found
+2025-04-06 01:58:40,391 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-04-06 01:58:40,419 INFO impl.YarnClientImpl: Submitted application application_1737290322575_47975
+2025-04-06 01:58:40,436 INFO mapreduce.Job: The url to track the job: http://m02.itversity.com:19088/proxy/application_1737290322575_47975/
+2025-04-06 01:58:40,436 INFO mapreduce.Job: Running job: job_1737290322575_47975
+2025-04-06 01:58:44,491 INFO mapreduce.Job: Job job_1737290322575_47975 running in uber mode : false
+2025-04-06 01:58:44,494 INFO mapreduce.Job:  map 0% reduce 0%
+2025-04-06 01:58:52,593 INFO mapreduce.Job:  map 50% reduce 0%
+2025-04-06 01:58:53,599 INFO mapreduce.Job:  map 100% reduce 0%
+2025-04-06 01:58:54,617 INFO mapreduce.Job: Job job_1737290322575_47975 completed successfully
+2025-04-06 01:58:54,669 INFO mapreduce.Job: Counters: 34
+        File System Counters
+                FILE: Number of bytes read=0
+                FILE: Number of bytes written=1099504
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=396
+                HDFS: Number of bytes written=123
+                HDFS: Number of read operations=24
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=8
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters 
+                Killed map tasks=1
+                Launched map tasks=4
+                Other local map tasks=4
+                Total time spent by all maps in occupied slots (ms)=23760
+                Total time spent by all reduces in occupied slots (ms)=0
+                Total time spent by all map tasks (ms)=23760
+                Total vcore-milliseconds taken by all map tasks=23760
+                Total megabyte-milliseconds taken by all map tasks=24330240
+        Map-Reduce Framework
+                Map input records=12
+                Map output records=12
+                Input split bytes=396
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=86
+                CPU time spent (ms)=2570
+                Physical memory (bytes) snapshot=1250242560
+                Virtual memory (bytes) snapshot=10500079616
+                Total committed heap usage (bytes)=2517106688
+                Peak Map Physical memory (bytes)=313188352
+                Peak Map Virtual memory (bytes)=2627375104
+        File Input Format Counters 
+                Bytes Read=0
+        File Output Format Counters 
+                Bytes Written=123
+2025-04-06 01:58:54,673 INFO mapreduce.ImportJobBase: Transferred 123 bytes in 23.919 seconds (5.1424 bytes/sec)
+2025-04-06 01:58:54,675 INFO mapreduce.ImportJobBase: Retrieved 12 records.
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/mdata4/ 
+Found 5 items
+-rw-r--r--   3 itv017714 supergroup          0 2025-04-06 01:58 /user/itv017714/mdata4/_SUCCESS
+-rw-r--r--   3 itv017714 supergroup         30 2025-04-06 01:58 /user/itv017714/mdata4/part-m-00000
+-rw-r--r--   3 itv017714 supergroup         30 2025-04-06 01:58 /user/itv017714/mdata4/part-m-00001
+-rw-r--r--   3 itv017714 supergroup         30 2025-04-06 01:58 /user/itv017714/mdata4/part-m-00002
+-rw-r--r--   3 itv017714 supergroup         33 2025-04-06 01:58 /user/itv017714/mdata4/part-m-00003
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata4/part-m-00000 
+1,zeyo,40
+2,vasu,50
+3,rani,70
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata4/part-m-00001
+4,vani,40
+5,hema,50
+6,hari,70
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata4/part-m-00002
+7,raki,40
+8,vira,50
+9,rupa,70
+[itv017714@g02 ~]$ hadoop fs -cat  /user/itv017714/mdata4/part-m-00003
+10,Siji,40
+11,rapo,50
+12,visu,70
