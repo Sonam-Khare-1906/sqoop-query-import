@@ -1,0 +1,41 @@
+[itv017714@g02 ~]$ FILENAME=$(basename https://raw.githubusercontent.com/saiadityaus1/SparkCore1/refs/heads/master/lab/EDGEHIVE.txt) && wget -q https://raw.githubusercontent.com/saiadityaus1/SparkCore1/refs/heads/master/lab/$FILENAME && USERNAME=$(basename $(pwd)) && sed -i "s/LABUSER/${USERNAME}/g" $FILENAME && echo -e "\n$FILENAME available at your left -- pls check\n"
+
+EDGEHIVE.txt available at your left -- pls check
+
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ echo 1,zeyo,40 > zfile
+[itv017714@g02 ~]$ echo 2,ravi,70 >> zfile
+[itv017714@g02 ~]$ echo 3,rani,70 >> zfile
+[itv017714@g02 ~]$ hive -e "SET hive.metastore.warehouse.dir = /user/itv017714/warehouse;drop database if exists itv017714 cascade;create database itv017714;use itv017714;create table ztab(id int,name string,amt int) row format delimited fields terminated by ',';load data local inpath '/home/itv017714/zfile'  into table ztab;select * from ztab;select * from ztab where id > 1"
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = df45c620-42e3-46be-a8a3-e1e7135f07e4
+
+Logging initialized using configuration in file:/opt/apache-hive-3.1.2-bin/conf/hive-log4j2.properties Async: true
+Hive Session ID = 81251ab1-b914-4849-a71f-8623fd311efd
+OK
+Time taken: 0.963 seconds
+OK
+Time taken: 0.16 seconds
+OK
+Time taken: 0.241 seconds
+OK
+Time taken: 0.271 seconds
+Loading data to table itv017714.ztab
+OK
+Time taken: 0.907 seconds
+OK
+1       zeyo    40
+2       ravi    70
+3       rani    70
+Time taken: 54.062 seconds, Fetched: 3 row(s)
+OK
+2       ravi    70
+3       rani    70
+Time taken: 59.584 seconds, Fetched: 2 row(s)
+[itv017714@g02 ~]$ hadoop  fs   -ls   /user/itv017714/warehouse/itv017714.db/ztab
+Found 1 items
+-rw-r--r--   3 itv017714 supergroup         30 2025-04-13 02:13 /user/itv017714/warehouse/itv017714.db/ztab/zfile
