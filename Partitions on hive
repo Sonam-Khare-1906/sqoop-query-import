@@ -1,0 +1,42 @@
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ echo 1,Sai,I>INDTxns
+[itv017714@g02 ~]$ echo 2,zeyo,I>>INDTxns
+[itv017714@g02 ~]$ echo 3,Hema,K>UKTxns
+[itv017714@g02 ~]$ echo 4,Gomathi,K>>UKTxns
+[itv017714@g02 ~]$ echo 5,Jai,S>USTxns
+[itv017714@g02 ~]$ echo 6,Swathi,S>>USTxns
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hadoop fs -mkdir /user/itv017714/partdir
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hive -e"set hive.metastore.warehouse.dir=/user/itv017714/warehouse;create database if not exists itv017714;use itv017714;drop table if exists parttab;create table parttab(id int,name string,chk string) partitioned by (country string) row format delimited fields terminated by ',' location '/user/itv017714/partdir';load data local inpath '/home/itv017714/INDTxns' into table parttab partition (country='INDIA');load data local inpath '/home/itv017714/USTxns' into table parttab partition (country='USA');load data local inpath '/home/itv017714/UKTxns' into table parttab partition (country='UK');"
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 1b0eeda7-f4b9-4bea-84c6-119aca446945
+
+Logging initialized using configuration in file:/opt/apache-hive-3.1.2-bin/conf/hive-log4j2.properties Async: true
+Hive Session ID = df17ccc3-defc-40fe-a000-3ad8bf49a807
+OK
+Time taken: 0.666 seconds
+OK
+Time taken: 0.032 seconds
+OK
+Time taken: 0.034 seconds
+OK
+Time taken: 0.131 seconds
+Loading data to table itv017714.parttab partition (country=INDIA)
+OK
+Time taken: 0.728 seconds
+Loading data to table itv017714.parttab partition (country=USA)
+OK
+Time taken: 0.607 seconds
+Loading data to table itv017714.parttab partition (country=UK)
+OK
+Time taken: 0.446 seconds
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/partdir;
+Found 3 items
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-19 02:29 /user/itv017714/partdir/country=INDIA
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-19 02:29 /user/itv017714/partdir/country=UK
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-19 02:29 /user/itv017714/partdir/country=USA
