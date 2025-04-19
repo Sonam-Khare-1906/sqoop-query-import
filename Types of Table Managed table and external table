@@ -1,0 +1,106 @@
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ echo 1,sai>zfile
+[itv017714@g02 ~]$ echo 2,vas>>zfile
+[itv017714@g02 ~]$ hadoop   fs    -mkdir     /user/itv017714/mdir
+[itv017714@g02 ~]$ hadoop   fs    -mkdir     /user/itv017714/edir
+[itv017714@g02 ~]$ hadoop   fs    -put    zfile   /user/itv017714/mdir
+[itv017714@g02 ~]$ hadoop   fs    -put    zfile   /user/itv017714/edir
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hive -e "SET hive.metastore.warehouse.dir = /user/itv017714/warehouse;drop database if exists itv017714 cascade;create database if not exists itv017714;use itv017714;create table mtab(id int,name string) row format delimited fields terminated by ',' location '/user/itv017714/mdir';create external table etab(id int,name string) row format delimited fields terminated by ',' location '/user/itv017714/edir';select * from mtab;select * from etab;describe formatted mtab;describe formatted etab;drop table mtab;drop table etab;"SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 66f0ff89-8632-410b-96fc-866a70647899
+
+Logging initialized using configuration in file:/opt/apache-hive-3.1.2-bin/conf/hive-log4j2.properties Async: true
+Hive Session ID = 72fd2902-24c9-49eb-b965-ae72feb3aed5
+OK
+Time taken: 1.297 seconds
+OK
+Time taken: 0.138 seconds
+OK
+Time taken: 0.156 seconds
+OK
+Time taken: 0.224 seconds
+OK
+Time taken: 0.104 seconds
+OK
+1       sai
+2       vas
+Time taken: 27.615 seconds, Fetched: 2 row(s)
+OK
+1       sai
+2       vas
+Time taken: 24.458 seconds, Fetched: 2 row(s)
+OK
+# col_name              data_type               comment             
+id                      int                                         
+name                    string                                      
+                 
+# Detailed Table Information             
+Database:               itv017714                
+OwnerType:              USER                     
+Owner:                  itv017714                
+CreateTime:             Sat Apr 19 01:28:35 EDT 2025     
+LastAccessTime:         UNKNOWN                  
+Retention:              0                        
+Location:               hdfs://m01.itversity.com:9000/user/itv017714/mdir        
+Table Type:             MANAGED_TABLE            
+Table Parameters:                
+        bucketing_version       2                   
+        numFiles                1                   
+        totalSize               12                  
+        transient_lastDdlTime   1745040515          
+                 
+# Storage Information            
+SerDe Library:          org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe       
+InputFormat:            org.apache.hadoop.mapred.TextInputFormat         
+OutputFormat:           org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat       
+Compressed:             No                       
+Num Buckets:            -1                       
+Bucket Columns:         []                       
+Sort Columns:           []                       
+Storage Desc Params:             
+        field.delim             ,                   
+        serialization.format    ,                   
+Time taken: 0.087 seconds, Fetched: 30 row(s)
+OK
+# col_name              data_type               comment             
+id                      int                                         
+name                    string                                      
+                 
+# Detailed Table Information             
+Database:               itv017714                
+OwnerType:              USER                     
+Owner:                  itv017714                
+CreateTime:             Sat Apr 19 01:28:35 EDT 2025     
+LastAccessTime:         UNKNOWN                  
+Retention:              0                        
+Location:               hdfs://m01.itversity.com:9000/user/itv017714/edir        
+Table Type:             EXTERNAL_TABLE           
+Table Parameters:                
+        EXTERNAL                TRUE                
+        bucketing_version       2                   
+        numFiles                1                   
+        totalSize               12                  
+        transient_lastDdlTime   1745040515          
+                 
+# Storage Information            
+SerDe Library:          org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe       
+InputFormat:            org.apache.hadoop.mapred.TextInputFormat         
+OutputFormat:           org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat       
+Compressed:             No                       
+Num Buckets:            -1                       
+Bucket Columns:         []                       
+Sort Columns:           []                       
+Storage Desc Params:             
+        field.delim             ,                   
+        serialization.format    ,                   
+Time taken: 0.032 seconds, Fetched: 31 row(s)
+OK
+Time taken: 0.104 seconds
+OK
+Time taken: 0.147 seconds
+[itv017714@g02 ~]$ hadoop    fs   -ls   /user/itv017714;
+ls: `  /user/itv017714': No such file or directory
