@@ -102,5 +102,24 @@ OK
 Time taken: 0.104 seconds
 OK
 Time taken: 0.147 seconds
-[itv017714@g02 ~]$ hadoop    fs   -ls   /user/itv017714;
-ls: `  /user/itv017714': No such file or directory
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714;
+Found 20 items
+drwx------   - itv017714 supergroup          0 2025-04-13 02:13 /user/itv017714/.Trash
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-15 02:14 /user/itv017714/Firstdir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-29 02:06 /user/itv017714/_sqoop
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-05 02:38 /user/itv017714/avrodir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-23 07:15 /user/itv017714/chnimport
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-19 01:27 /user/itv017714/edir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-22 01:55 /user/itv017714/firstimport
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-16 00:58 /user/itv017714/hdir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-23 02:54 /user/itv017714/inimport
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-29 02:06 /user/itv017714/jobimport
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-23 00:55 /user/itv017714/joindir
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-06 01:53 /user/itv017714/mdata1
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-06 01:56 /user/itv017714/mdata2
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-06 01:58 /user/itv017714/mdata4
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-19 01:42 /user/itv017714/mdir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-30 02:35 /user/itv017714/pardir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-15 02:29 /user/itv017714/sdir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-22 00:08 /user/itv017714/sunitadir
+drwxr-xr-x   - itv017714 supergroup          0 2025-03-21 23:24 /user/itv017714/testdir
