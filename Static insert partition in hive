@@ -64,3 +64,9 @@ Time taken: 51.414 seconds
 [itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/sidir/
 Found 1 items
 drwxr-xr-x   - itv017714 supergroup          0 2025-04-20 01:28 /user/itv017714/sidir/country=INDIA
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/sidir/country=INDIA
+Found 1 items
+-rw-r--r--   3 itv017714 supergroup         17 2025-04-20 01:28 /user/itv017714/sidir/country=INDIA/000000_0
+[itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/sidir/country=INDIA/000000_0
+1,Sai,I
+2,zeyo,I
