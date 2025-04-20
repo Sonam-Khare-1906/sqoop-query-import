@@ -1,0 +1,66 @@
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ echo 1,Sai,I,IND>allc
+[itv017714@g02 ~]$ echo 2,zeyo,I,IND>>allc
+[itv017714@g02 ~]$ echo 3,Hema,K,UK>>allc
+[itv017714@g02 ~]$ echo 4,Gomathi,K,UK>>allc
+[itv017714@g02 ~]$ echo 5,Jai,S,US>>allc
+[itv017714@g02 ~]$ echo 6,Swathi,S,US>>allc
+[itv017714@g02 ~]$ hadoop fs -mkdir /user/itv017714/helpdir
+[itv017714@g02 ~]$ hadoop fs -mkdir /user/itv017714/partsdir
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hive -e "set hive.metastore.warehouse.dir=/user/itv017714/warehouse;create database if not exists itv017714;use itv017714;drop table if exists helptab;create table helptab(id int,name string,chk string,country string) row format delimited fields terminated by ',' location '/user/itv017714/helpdir';load data local inpath '/home/itv017714/allc' into table helptab;drop table if exists sitab;create table sitab(id int,name string,chk string) partitioned by (country string) row format delimited fields terminated by ',' location '/user/itv017714/sidir';insert into sitab partition(country='INDIA') select id,name,chk from helptab where country='IND';"
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = f9b7ac66-051d-471f-ba31-be0bdbd0c9a4
+
+Logging initialized using configuration in file:/opt/apache-hive-3.1.2-bin/conf/hive-log4j2.properties Async: true
+Hive Session ID = b684de15-dad1-44f3-a3fd-247087e0f192
+OK
+Time taken: 0.78 seconds
+OK
+Time taken: 0.014 seconds
+OK
+Time taken: 0.029 seconds
+OK
+Time taken: 0.267 seconds
+Loading data to table itv017714.helptab
+OK
+Time taken: 0.49 seconds
+OK
+Time taken: 0.013 seconds
+OK
+Time taken: 0.051 seconds
+Query ID = itv017714_20250420012746_df67e653-c990-4c5a-b036-637bf1b45f82
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1744277128300_6629, Tracking URL = http://m02.itversity.com:19088/proxy/application_1744277128300_6629/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1744277128300_6629
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2025-04-20 01:28:26,468 Stage-1 map = 0%,  reduce = 0%
+2025-04-20 01:28:31,645 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.37 sec
+2025-04-20 01:28:34,790 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.92 sec
+MapReduce Total cumulative CPU time: 3 seconds 920 msec
+Ended Job = job_1744277128300_6629
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://m01.itversity.com:9000/user/itv017714/sidir/country=INDIA/.hive-staging_hive_2025-04-20_01-27-46_627_2998806958888442445-2/-ext-10000
+Loading data to table itv017714.sitab partition (country=INDIA)
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.92 sec   HDFS Read: 16506 HDFS Write: 317 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 920 msec
+OK
+Time taken: 51.414 seconds
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/sidir/
+Found 1 items
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-20 01:28 /user/itv017714/sidir/country=INDIA
