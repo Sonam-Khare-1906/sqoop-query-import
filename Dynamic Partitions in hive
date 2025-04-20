@@ -1,0 +1,78 @@
+[itv017714@g02 ~]$ cd
+[itv017714@g02 ~]$ echo 1,Sai,I,IND>allc
+[itv017714@g02 ~]$ echo 2,zeyo,I,IND>>allc
+[itv017714@g02 ~]$ echo 3,Hema,K,UK>>allc
+[itv017714@g02 ~]$ echo 4,Gomathi,K,UK>>allc
+[itv017714@g02 ~]$ echo 5,Jai,S,US>>allc
+[itv017714@g02 ~]$ echo 6,Swathi,S,US>>allc
+[itv017714@g02 ~]$ hadoop fs -mkdir /user/itv017714/helpdir1
+[itv017714@g02 ~]$ hadoop fs -mkdir /user/itv017714/dyndir
+[itv017714@g02 ~]$ 
+[itv017714@g02 ~]$ hive -e "set hive.metastore.warehouse.dir=/user/itv017714/warehouse;create database if not exists itv017714;use itv017714;drop table if exists helptab;create table helptab(id int,name string,chk string,country string) row format delimited fields terminated by ',' location '/user/itv017714/helpdir1';load data local inpath '/home/itv017714/allc' into table helptab;create table dyntab(id int,name string,chk string) partitioned by (country string) row format delimited fields terminated by ',' location '/user/itv017714/dyndir';set hive.exec.dynamic.partition.mode=nonstrict;insert into dyntab partition(country) select id,name,chk,country from helptab;"
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop-3.3.0/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 8e08248f-8279-4787-9bfe-db09db79e2ff
+
+Logging initialized using configuration in file:/opt/apache-hive-3.1.2-bin/conf/hive-log4j2.properties Async: true
+Hive Session ID = 327c43c1-430d-44a3-8116-926432c91a2b
+OK
+Time taken: 0.784 seconds
+OK
+Time taken: 0.038 seconds
+OK
+Time taken: 0.124 seconds
+OK
+Time taken: 0.329 seconds
+Loading data to table itv017714.helptab
+OK
+Time taken: 0.582 seconds
+OK
+Time taken: 0.125 seconds
+Query ID = itv017714_20250420014522_9fb44544-5baf-4dc0-90b8-fa51ff676a76
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1744277128300_6706, Tracking URL = http://m02.itversity.com:19088/proxy/application_1744277128300_6706/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1744277128300_6706
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2025-04-20 01:46:12,302 Stage-1 map = 0%,  reduce = 0%
+2025-04-20 01:46:17,470 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.22 sec
+2025-04-20 01:46:20,556 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.84 sec
+MapReduce Total cumulative CPU time: 3 seconds 840 msec
+Ended Job = job_1744277128300_6706
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://m01.itversity.com:9000/user/itv017714/dyndir/.hive-staging_hive_2025-04-20_01-45-22_862_7943245551051200556-2/-ext-10000
+Loading data to table itv017714.dyntab partition (country=null)
+
+
+         Time taken to load dynamic partitions: 0.344 seconds
+         Time taken for adding to write entity : 0.002 seconds
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.84 sec   HDFS Read: 16247 HDFS Write: 741 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 840 msec
+OK
+Time taken: 60.704 seconds
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/dyndir/
+Found 3 items
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-20 01:46 /user/itv017714/dyndir/country=IND
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-20 01:46 /user/itv017714/dyndir/country=UK
+drwxr-xr-x   - itv017714 supergroup          0 2025-04-20 01:46 /user/itv017714/dyndir/country=US
+[itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/dyndir/country=UK
+cat: `/user/itv017714/dyndir/country=UK': Is a directory
+[itv017714@g02 ~]$ hadoop fs -ls /user/itv017714/dyndir/country=UK
+Found 1 items
+-rw-r--r--   3 itv017714 supergroup         21 2025-04-20 01:46 /user/itv017714/dyndir/country=UK/000000_0
+[itv017714@g02 ~]$ hadoop fs -cat /user/itv017714/dyndir/country=UK/000000_0
+3,Hema,K
+4,Gomathi,K
